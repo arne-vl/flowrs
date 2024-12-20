@@ -36,17 +36,12 @@ jobs:
       with:
         python-version: 3.13.1
 
-    # Step 5: Install Python dependencies
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt  # If you have any dependencies, such as `pytest`
-
-    # Step 6: Build the Rust extension with maturin
+    # Step 5: Build the Rust extension with maturin
     - name: Build Rust extension
       run: |
         ./build.sh
 
-    # Step 7: Run Python tests
+    # Step 6: Run Python tests
     - name: Run tests
       run: |
         python -m unittest tests/test_flowrs.py
