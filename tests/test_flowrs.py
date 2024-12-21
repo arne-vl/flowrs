@@ -1,5 +1,5 @@
 import unittest
-from flowrs import Task, Workflow
+from flowrs import Workflow, Task
 
 class TestFlowrs(unittest.TestCase):
     def test_task_initialization(self):
