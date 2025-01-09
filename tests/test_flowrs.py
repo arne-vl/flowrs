@@ -1,44 +1,33 @@
 import unittest
-from flowrs import Workflow, Task
+from flowrs import Workflow
+from typing import List
 
 class TestFlowrs(unittest.TestCase):
-    def test_task_initialization(self):
-        """Test Task initialization with name and function."""
-        def dummy_task():
-            pass
+    def test_workflow_initialization(self):
+        """Test Workflow initialization with name and function."""
 
-        task = Task("dummy_task", dummy_task)
-        self.assertEqual(task.get_name(), "dummy_task")
+        workflow = Workflow("dummy_workflow")
 
-    def test_task_direct_execution_error(self):
-        """Test that Task objects cannot be run directly."""
-        def dummy_task():
-            pass
+        self.assertEqual(workflow.name, "dummy_workflow")
 
-        task = Task("dummy_task", dummy_task)
-
-        with self.assertRaises(AttributeError):
-            task.run()
-
-    def test_workflow_execution(self):
-        """Test Workflow executes tasks in order."""
-        results = []
+    def test_workflow_sequential(self):
+        """Test Workflow sequential execution."""
+        number_list: List[int] = []
 
         def task_one():
-            results.append("task_one")
+            number_list.append(1)
 
         def task_two():
-            results.append("task_two")
+            number_list.append(2)
 
-        task1 = Task("task_one", task_one)
-        task2 = Task("task_two", task_two)
+        workflow = Workflow("dummy_workflow")
 
-        workflow = Workflow("example_workflow")
-        workflow.add_task(task1)
-        workflow.add_task(task2)
+        workflow.add_task("Task One", task_one)
+        workflow.add_task("Task Two", task_two)
 
         workflow.run()
-        self.assertEqual(results, ["task_one", "task_two"])
+
+        self.assertEqual(number_list, [1, 2])
 
 if __name__ == "__main__":
     unittest.main()
