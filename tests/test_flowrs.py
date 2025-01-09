@@ -8,7 +8,7 @@ class TestFlowrs(unittest.TestCase):
 
         workflow = Workflow("dummy_workflow")
 
-        self.assertEqual(workflow.get_name(), "dummy_workflow")
+        self.assertEqual(workflow.name, "dummy_workflow")
 
     def test_workflow_sequential(self):
         """Test Workflow sequential execution."""
