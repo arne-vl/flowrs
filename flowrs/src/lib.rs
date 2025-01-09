@@ -4,6 +4,7 @@ use chrono::Local;
 
 #[pyclass]
 pub struct Workflow {
+    #[pyo3(get)]
     name: String,
     tasks: Vec<(String, Py<PyFunction>)>
 }
@@ -11,15 +12,8 @@ pub struct Workflow {
 #[pymethods]
 impl Workflow {
     #[new]
-    pub fn new(name: String) -> Self {
-        Workflow {
-            name,
-            tasks: Vec::new(),
-        }
-    }
-
-    pub fn get_name(&self) -> &str {
-        &self.name
+    pub fn new(name: String) -> PyResult<Self> {
+        Ok(Workflow { name, tasks: Vec::new() })
     }
 
     pub fn add_task(&mut self, name: String, py_func: Py<PyFunction>) {
@@ -27,13 +21,19 @@ impl Workflow {
     }
 
     pub fn run(&self, py: Python) -> PyResult<()> {
+        let timestamp = Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
+        println!("[{}] Starting Workflow: {}", timestamp, self.name);
+
         for (name, py_func) in &self.tasks {
             let timestamp = Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
-            println!("[{}] Running task: {}", timestamp, name);
+            println!("[{}] - Running task: {}", timestamp, name);
 
             let func = py_func.as_ref(py);
             func.call0()?;
         }
+
+        let timestamp = Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
+        println!("[{}] Finished Workflow: {}", timestamp, self.name);
         Ok(())
     }
 }
