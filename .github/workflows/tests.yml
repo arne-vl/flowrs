@@ -39,8 +39,8 @@ jobs:
     # Step 5: Build the Rust extension with maturin
     - name: Build Rust extension
       run: |
-        chmod +x build.sh
-        ./build.sh
+        chmod +x scripts/build.sh
+        ./scripts/build.sh
 
     # Step 6: Run Python tests
     - name: Run tests
