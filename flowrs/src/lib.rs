@@ -2,11 +2,25 @@ use pyo3::prelude::*;
 use pyo3::types::PyFunction;
 use chrono::Local;
 
+mod functions;
+
+#[pymodule]
+fn flowrs(py: Python, m: &PyModule) -> PyResult<()> {
+    m.add_class::<Workflow>()?;
+
+    m.add_submodule(functions::make_module(py)?)?;
+
+    Ok(())
+}
+
+/*  --------------------- Module Implementation --------------------- */
+
 #[pyclass]
 pub struct Workflow {
     #[pyo3(get)]
     name: String,
-    tasks: Vec<(String, Py<PyFunction>)>
+
+    tasks: Vec<(String, Py<PyFunction>)>,
 }
 
 #[pymethods]
@@ -36,10 +50,4 @@ impl Workflow {
         println!("[{}] Finished Workflow: {}", timestamp, self.name);
         Ok(())
     }
-}
-
-#[pymodule]
-fn flowrs(_py: Python, m: &PyModule) -> PyResult<()> {
-    m.add_class::<Workflow>()?;
-    Ok(())
 }

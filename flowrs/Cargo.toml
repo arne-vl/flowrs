@@ -1,7 +1,11 @@
 [package]
 name = "flowrs"
-version = "0.0.1"
+version = "0.0.3"
 edition = "2021"
+
+description = "A Python module for task orchestration and automation, implemented in Rust."
+license = "MIT"
+
 
 [dependencies]
 pyo3 = { version = "0.18", features = ["extension-module"] }

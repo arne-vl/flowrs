@@ -4,12 +4,14 @@
       "dockerfile": "../Dockerfile"
     },
     "settings": {
-      "terminal.integrated.defaultProfile.linux": "bash"
+      "terminal.integrated.defaultProfile.linux": "bash",
+      "python.terminal.activateEnvInCurrentTerminal": true,
+      "python.defaultInterpreterPath": ".venv/bin/python"
     },
     "extensions": [
       "ms-python.python",
       "rust-lang.rust-analyzer"
     ],
-    "postCreateCommand": "pip install --upgrade pip",
+    "postCreateCommand": "python3 -m venv .venv",
     "remoteUser": "root"
   }
