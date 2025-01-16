@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Exit script on any error
-set -e
-
 # Virtual environment directory
 VENV_DIR=".venv"
 
