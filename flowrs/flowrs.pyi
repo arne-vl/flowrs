@@ -11,3 +11,9 @@ class Workflow:
     Adds a task to the Workflow.
     """
     ...
+
+  def run(self) -> None:
+    """
+    Runs the Workflow.
+    """
+    ...
