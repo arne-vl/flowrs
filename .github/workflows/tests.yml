@@ -40,7 +40,9 @@ jobs:
     - name: Build Rust extension
       run: |
         cd flowrs
-        maturin build
+        maturin build --release
+        WHEEL_FILE=$(ls target/wheels/*.whl | head -n 1)
+        pip install --force-reinstall "$WHEEL_FILE"
 
     # Step 6: Run Python tests
     - name: Run tests
