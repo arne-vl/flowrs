@@ -47,4 +47,4 @@ jobs:
     # Step 6: Run Python tests
     - name: Run tests
       run: |
-        python -m unittest tests/test_flowrs.py
+        python -m unittest discover tests

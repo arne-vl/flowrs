@@ -1,17 +1,13 @@
 import unittest
 from flowrs import Workflow
-from flowrs.functions import create_workflow
 from typing import List
 
-class TestFlowrs(unittest.TestCase):
+class TestWorkflow(unittest.TestCase):
     def test_workflow_initialization(self):
         """Test Workflow initialization with name and function."""
 
         workflow = Workflow("dummy_workflow")
         self.assertEqual(workflow.name, "dummy_workflow")
-
-        workflow = create_workflow("dummy_workflow_function")
-        self.assertEqual(workflow.name, "dummy_workflow_function")
 
     def test_workflow_sequential(self):
         """Test Workflow sequential execution."""

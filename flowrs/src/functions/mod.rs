@@ -20,5 +20,5 @@ pub fn make_module(py: Python) -> PyResult<&PyModule> {
 
 #[pyfunction]
 fn create_workflow(name: String) -> PyResult<Workflow> {
-    Workflow::new(name)
+    Ok(Workflow::new(name)?)
 }
