@@ -5,8 +5,7 @@
   },
   "settings": {
     "terminal.integrated.defaultProfile.linux": "bash",
-    "python.terminal.activateEnvInCurrentTerminal": true,
-    "python.defaultInterpreterPath": ".venv/bin/python"
+    "python.terminal.activateEnvInCurrentTerminal": true
   },
   "customizations": {
     "vscode": {
@@ -16,6 +15,6 @@
       ]
     }
   },
-  "postCreateCommand": ". .venv/bin/activate && pip install maturin",
+  "postCreateCommand": "./scripts/devcontainer/setup.sh",
   "remoteUser": "vscode"
 }
