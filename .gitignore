@@ -3,3 +3,4 @@ Cargo.lock
 test.py
 __pycache__
 .venv
+dist
