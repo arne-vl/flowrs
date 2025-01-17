@@ -10,7 +10,7 @@ if [[ "$current_branch" != "main" ]]; then
 fi
 
 # Step 2: Ensure the main branch is up to date
-git fetch origin
+git fetch origin && git pull
 if ! git diff --quiet origin/main; then
     echo "The main branch is not up to date with origin/main. Please pull the latest changes."
     exit 1
