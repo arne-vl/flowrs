@@ -50,7 +50,7 @@ new_version="${major}.${minor}.${fix}"
 echo "Updating version to $new_version"
 
 # Update version in Cargo.toml
-sed -i.bak "s/^version = \".*\"/version = \"$new_version\"/" flowrs/Cargo.toml
+sed -i "s/^version = \".*\"/version = \"$new_version\"/" flowrs/Cargo.toml
 
 # Step 5: Commit and push the changes
 git add flowrs/Cargo.toml

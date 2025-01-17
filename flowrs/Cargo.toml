@@ -1,6 +1,6 @@
 [package]
 name = "flowrs"
-version = "1.0.0"
+version = "0.0.0"
 edition = "2021"
 
 description = "A Python module for task orchestration and automation, implemented in Rust."
