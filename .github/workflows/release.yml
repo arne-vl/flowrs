@@ -97,7 +97,7 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.platform.target }}
-          args: --release --out dist --find-interpreter --manifest-path flowrs/Cargo.toml
+          args: --release --out dist --interpreter ["python3.9", "python3.10", "python3.11", "python3.12", "python3.13"] --manifest-path flowrs/Cargo.toml
           sccache: 'true'
           manylinux: auto
       - name: Upload wheels
@@ -125,7 +125,7 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.platform.target }}
-          args: --release --out dist --find-interpreter --manifest-path flowrs/Cargo.toml
+          args: --release --out dist --interpreter ["python3.9", "python3.10", "python3.11", "python3.12", "python3.13"] --manifest-path flowrs/Cargo.toml
           sccache: 'true'
       - name: Upload wheels
         uses: actions/upload-artifact@v4
@@ -151,7 +151,7 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.platform.target }}
-          args: --release --out dist --find-interpreter --manifest-path flowrs/Cargo.toml
+          args: --release --out dist --interpreter ["python3.9", "python3.10", "python3.11", "python3.12", "python3.13"] --manifest-path flowrs/Cargo.toml
           sccache: 'true'
       - name: Upload wheels
         uses: actions/upload-artifact@v4
