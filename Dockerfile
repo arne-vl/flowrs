@@ -1,22 +1,27 @@
 # Use a base image with Python preinstalled
-FROM python:3.13.1-slim
+FROM mcr.microsoft.com/devcontainers/python:3.13
 
-# Install Rust and dependencies for maturin
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Install dependencies for maturin and Rust for vscode user
+RUN sudo apt-get update && apt-get install -y --no-install-recommends \
     curl \
     build-essential \
-    && curl https://sh.rustup.rs -sSf | sh -s -- -y \
-    && apt-get clean \
+    && sudo apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Add Rust binaries to PATH
-ENV PATH="/root/.cargo/bin:${PATH}"
+# Switch to vscode user and install Rust for vscode user
+USER vscode
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 
-# Install maturin
-RUN pip install --no-cache-dir maturin
+# Set up Rust
+ENV PATH="/home/vscode/.cargo/bin:${PATH}"
+
+# Create a virtual environment with maturin inside /workspace
+WORKDIR /workspace
+RUN python -m venv .venv \
+    && . ./.venv/bin/activate && pip install maturin
 
 # Verify installations
-RUN python --version && rustc --version && cargo --version && maturin --version
+RUN python --version && rustc --version && cargo --version
 
 # Set up a working directory
 WORKDIR /workspace

@@ -1,17 +1,20 @@
 {
-    "name": "flowrs-dev",
-    "build": {
-      "dockerfile": "../Dockerfile"
-    },
-    "settings": {
-      "terminal.integrated.defaultProfile.linux": "bash",
-      "python.terminal.activateEnvInCurrentTerminal": true,
-      "python.defaultInterpreterPath": ".venv/bin/python"
-    },
-    "extensions": [
-      "ms-python.python",
-      "rust-lang.rust-analyzer"
-    ],
-    "postCreateCommand": "python3 -m venv .venv",
-    "remoteUser": "root"
-  }
+  "name": "flowrs-dev",
+  "build": {
+    "dockerfile": "../Dockerfile"
+  },
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "python.terminal.activateEnvInCurrentTerminal": true
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "rust-lang.rust-analyzer"
+      ]
+    }
+  },
+  "postCreateCommand": "./scripts/devcontainer/setup.sh",
+  "remoteUser": "vscode"
+}
