@@ -53,7 +53,7 @@ echo "Updating version to $new_version"
 sed -i.bak "s/^version = \".*\"/version = \"$new_version\"/" flowrs/Cargo.toml
 
 # Step 5: Commit and push the changes
-git add Cargo.toml
+git add flowrs/Cargo.toml
 git commit -m "Bump version to $new_version"
 git push origin main
 
