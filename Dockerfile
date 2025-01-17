@@ -1,22 +1,23 @@
 # Use a base image with Python preinstalled
-FROM python:3.13.1-slim
+FROM mcr.microsoft.com/devcontainers/python:3.13
 
 # Install Rust and dependencies for maturin
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl \
-    build-essential \
-    && curl https://sh.rustup.rs -sSf | sh -s -- -y \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y curl && \
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
+    export PATH="$HOME/.cargo/bin:$PATH" && \
+    rustup default stable
 
 # Add Rust binaries to PATH
 ENV PATH="/root/.cargo/bin:${PATH}"
 
-# Install maturin
-RUN pip install --no-cache-dir maturin
+# Create a virtual environment
+RUN python -m venv .venv
 
-# Verify installations
-RUN python --version && rustc --version && cargo --version && maturin --version
+# Ensure venv is activated in every terminal session
+RUN echo "source /workspaces/.venv/bin/activate" >> ~/.bashrc
+
+# Install maturin globally in the venv
+RUN . .venv/bin/activate && pip install maturin
 
 # Set up a working directory
 WORKDIR /workspace
