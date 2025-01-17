@@ -93,7 +93,7 @@ jobs:
       - name: Build module
         run: |
           cd flowrs
-          maturin build --release --sdist --out dist/
+          maturin build --release --out dist/
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
