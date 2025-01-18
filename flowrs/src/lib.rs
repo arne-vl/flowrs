@@ -31,6 +31,8 @@ impl Workflow {
     }
 
     pub fn add_task(&mut self, name: String, py_func: Py<PyFunction>) {
+        // TODO: Check if name already exists; else throw error.
+        // TODO: Add `depends_on` parameter; check if name exists.
         self.tasks.push((name, py_func));
     }
 
