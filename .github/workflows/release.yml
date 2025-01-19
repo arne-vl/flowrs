@@ -111,6 +111,7 @@ jobs:
             --release
             --out dist
             --manifest-path flowrs/Cargo.toml
+            --interpreter python${{ matrix.python-version }}
           sccache: 'true'
           manylinux: auto
       - name: Upload wheels
