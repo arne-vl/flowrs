@@ -229,24 +229,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Download Linux Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: wheels-linux-*
-          path: dist/linux
-
-      - name: Download Windows Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: wheels-windows-*
-          path: dist/windows
-
-      - name: Download MacOS Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: wheels-macos-*
-          path: dist/macos
-
       - name: Download Source Distribution
         uses: actions/download-artifact@v4
         with:
