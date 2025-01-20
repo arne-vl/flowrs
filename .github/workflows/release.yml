@@ -136,14 +136,21 @@ jobs:
           Invoke-WebRequest -Uri "https://www.python.org/ftp/python/3.11.9/python-3.11.9-amd64.exe" -OutFile python-installer.exe
           Start-Process python-installer.exe -ArgumentList '/quiet InstallAllUsers=1 PrependPath=1' -Wait
 
-      - name: Install Rust
+      - name: Build wheels x86-64
         if: matrix.platform.target == 'x86-64'
-        uses: actions-rs/toolchain@v1
+        uses: PyO3/maturin-action@v1
         with:
-          toolchain: stable
-          target: x86_64-pc-windows-msvc
+          target: ${{ matrix.platform.target }}
+          args: >
+            --release
+            --out dist
+            --manifest-path flowrs/Cargo.toml
+            --interpreter python${{ env.PYTHON_VERSION }}
+            --target x86_64-pc-windows-msvc
+          sccache: 'true'
 
-      - name: Build wheels
+      - name: Build wheels ARM
+        if: matrix.platform.target == 'arm64'
         uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.platform.target }}
