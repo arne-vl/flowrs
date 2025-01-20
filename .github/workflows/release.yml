@@ -117,9 +117,9 @@ jobs:
       matrix:
         platform:
           - runner: windows-latest
-            target: x86-64
+            target: x86_64-pc-windows-msvc
           - runner: windows-latest
-            target: arm64
+            target: aarch64-pc-windows-msvc
 
     steps:
       - uses: actions/checkout@v4
