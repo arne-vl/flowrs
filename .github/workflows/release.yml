@@ -15,8 +15,6 @@ on:
 
 env:
   PACKAGE_NAME: "flowrs"
-  OWNER: "arne-vl"
-  TAP_NAME: "flowrs"
   PYTHON_VERSION: "3.11"
 
 permissions:
@@ -93,7 +91,7 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: ${{ env.python-version }}
+          python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Build universal wheel
         uses: PyO3/maturin-action@v1
@@ -102,7 +100,7 @@ jobs:
             --release
             --out dist
             --manifest-path flowrs/Cargo.toml
-            --interpreter python${{ env.python-version }}
+            --interpreter python${{ env.PYTHON_VERSION }}
           sccache: 'true'
           manylinux: auto
 
@@ -127,7 +125,8 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: ${{ env.python-version }}
+          python-version: ${{ env.PYTHON_VERSION
+           }}
           architecture: ${{ matrix.platform.target }}
 
       - name: Build wheels
