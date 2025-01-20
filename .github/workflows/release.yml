@@ -17,6 +17,7 @@ env:
   PACKAGE_NAME: "flowrs"
   OWNER: "arne-vl"
   TAP_NAME: "flowrs"
+  PYTHON_VERSION: "3.11"
 
 permissions:
   contents: read
@@ -28,6 +29,7 @@ jobs:
       new_version: ${{ steps.release.outputs.new_version }}
       suffix: ${{ steps.release.outputs.suffix }}
       tag_name: ${{ steps.release.outputs.tag_name }}
+
     steps:
       - uses: actions/checkout@v2
 
@@ -52,6 +54,7 @@ jobs:
   check_pypi:
     needs: details
     runs-on: ubuntu-latest
+
     steps:
       - name: Fetch information from PyPI
         run: |
@@ -83,41 +86,30 @@ jobs:
           - runner: ubuntu-22.04
             target: x86_64
           - runner: ubuntu-22.04
-            target: x86
-        python-version: [3.12, 3.13]
-        include:
-          - runner: ubuntu-22.04
-            target: x86_64
-            python-version: 3.12
-          - runner: ubuntu-22.04
-            target: x86_64
-            python-version: 3.13
-          - runner: ubuntu-22.04
-            target: x86
-            python-version: 3.12
-          - runner: ubuntu-22.04
-            target: x86
-            python-version: 3.13
+            target: aarch64
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
-      - name: Build wheels
+          python-version: ${{ env.python-version }}
+
+      - name: Build universal wheel
         uses: PyO3/maturin-action@v1
         with:
-          target: ${{ matrix.platform.target }}
           args: >
             --release
             --out dist
             --manifest-path flowrs/Cargo.toml
-            --interpreter python${{ matrix.python-version }}
+            --interpreter python${{ env.python-version }}
           sccache: 'true'
           manylinux: auto
+
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
-          name: wheels-linux-${{ matrix.platform.target }}-${{ matrix.python-version }}
+          name: wheels-linux-${{ matrix.platform.target }}
           path: dist
 
   windows:
@@ -126,29 +118,18 @@ jobs:
       matrix:
         platform:
           - runner: windows-latest
-            target: x64
-          - runner: windows-latest
-            target: x86
-        python-version: [3.12, 3.13]
-        include:
-          - runner: windows-latest
-            target: x64
-            python-version: 3.12
-          - runner: windows-latest
-            target: x64
-            python-version: 3.13
-          - runner: windows-latest
-            target: x86
-            python-version: 3.12
-          - runner: windows-latest
-            target: x86
-            python-version: 3.13
+            target: x84_64
+          - runner: windows-arm64
+            target: aarch64
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: ${{ env.python-version }}
           architecture: ${{ matrix.platform.target }}
+
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -158,10 +139,11 @@ jobs:
             --out dist
             --manifest-path flowrs/Cargo.toml
           sccache: 'true'
+
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
-          name: wheels-windows-${{ matrix.platform.target }}-${{ matrix.python-version }}
+          name: wheels-windows-${{ matrix.platform.target }}
           path: dist
 
   macos:
