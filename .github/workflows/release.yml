@@ -84,7 +84,7 @@ jobs:
           - runner: ubuntu-22.04
             target: x86-64
           - runner: ubuntu-22.04-arm
-            target: aarch64
+            target: armv7
 
     steps:
       - uses: actions/checkout@v4
