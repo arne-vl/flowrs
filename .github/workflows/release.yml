@@ -3,7 +3,7 @@
 #
 #    maturin generate-ci github -m flowrs/Cargo.toml
 #
-name: release
+name: Release
 
 on:
   push:
