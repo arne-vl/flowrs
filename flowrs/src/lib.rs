@@ -1,5 +1,6 @@
 use pyo3::prelude::*;
-use pyo3::types::PyCFunction;
+use pyo3::exceptions::PyTypeError;
+use pyo3::types::PyAny;
 use chrono::Local;
 
 mod functions;
@@ -20,7 +21,7 @@ pub struct Workflow {
     #[pyo3(get)]
     name: String,
 
-    tasks: Vec<(String, Py<PyCFunction>)>,
+    tasks: Vec<(String, PyObject)>,
 }
 
 #[pymethods]
@@ -30,8 +31,17 @@ impl Workflow {
         Ok(Workflow { name, tasks: Vec::new() })
     }
 
-    pub fn add_task(&mut self, name: String, py_func: Py<PyCFunction>) {
+    pub fn add_task(&mut self, name: String, py_func: Py<PyAny>) -> PyResult<()> {
+        Python::with_gil(|py| {
+            let callable = py_func.as_ref(py);
+            if !callable.is_callable() {
+                return Err(PyTypeError::new_err("The provided function is not callable"));
+            }
+            Ok(())
+        })?;
+
         self.tasks.push((name, py_func));
+        Ok(())
     }
 
     pub fn run(&self, py: Python) -> PyResult<()> {
