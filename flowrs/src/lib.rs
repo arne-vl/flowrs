@@ -1,5 +1,5 @@
 use pyo3::prelude::*;
-use pyo3::types::PyFunction;
+use pyo3::types::PyCFunction;
 use chrono::Local;
 
 mod functions;
@@ -20,7 +20,7 @@ pub struct Workflow {
     #[pyo3(get)]
     name: String,
 
-    tasks: Vec<(String, Py<PyFunction>)>,
+    tasks: Vec<(String, Py<PyCFunction>)>,
 }
 
 #[pymethods]
@@ -30,7 +30,7 @@ impl Workflow {
         Ok(Workflow { name, tasks: Vec::new() })
     }
 
-    pub fn add_task(&mut self, name: String, py_func: Py<PyFunction>) {
+    pub fn add_task(&mut self, name: String, py_func: Py<PyCFunction>) {
         self.tasks.push((name, py_func));
     }
 
