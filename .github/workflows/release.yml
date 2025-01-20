@@ -84,7 +84,7 @@ jobs:
       matrix:
         platform:
           - runner: ubuntu-22.04
-            target: x86_64
+            target: x64
           - runner: ubuntu-22.04
             target: aarch64
 
@@ -118,7 +118,7 @@ jobs:
       matrix:
         platform:
           - runner: windows-latest
-            target: x84_64
+            target: x64
           - runner: windows-arm64
             target: aarch64
 
@@ -159,9 +159,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
+
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -172,6 +174,7 @@ jobs:
             --manifest-path flowrs/Cargo.toml
             --interpreter python${{ env.PYTHON_VERSION }}
           sccache: 'true'
+
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
