@@ -130,11 +130,18 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
-      - name: Download Python
+      - name: Setup Python Windows ARM
         if: matrix.platform.target == 'arm64'
         run: |
           Invoke-WebRequest -Uri "https://www.python.org/ftp/python/3.11.9/python-3.11.9-amd64.exe" -OutFile python-installer.exe
           Start-Process python-installer.exe -ArgumentList '/quiet InstallAllUsers=1 PrependPath=1' -Wait
+
+      - name: Install Rust
+        if: matrix.platform.target == 'x86-64'
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: x86_64-pc-windows-msvc
 
       - name: Build wheels
         uses: PyO3/maturin-action@v1
