@@ -159,6 +159,7 @@ jobs:
             --out dist
             --manifest-path flowrs/Cargo.toml
             --interpreter python${{ env.PYTHON_VERSION }}
+            --target arm64ec-pc-windows-msvc
           sccache: 'true'
 
       - name: Upload wheels
