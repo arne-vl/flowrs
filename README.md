@@ -1,5 +1,5 @@
 # flowrs
-Flowrs is a high-performance Python package built in Rust, designed to simplify task orchestration and workflow automation. It combines Rust’s speed and reliability with Python’s accessibility, making it a powerful yet user-friendly solution for managing complex processes.
+Workflow automation with the power of Rust. Let your automations blossom!
 
 <a href="https://pypi.org/project/flowrs/">
 	<img alt="Static Badge" src="https://img.shields.io/badge/pip-flowrs-blue">

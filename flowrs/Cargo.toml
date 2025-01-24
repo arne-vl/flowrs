@@ -1,6 +1,6 @@
 [package]
 name = "flowrs"
-description = "A Python module for task orchestration and automation, implemented in Rust."
+description = "Workflow automation with the power of Rust."
 readme = "../README.md"
 license = "MIT"
 license-file = "../LICENSE"
