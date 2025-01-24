@@ -1,11 +1,16 @@
 [package]
 name = "flowrs"
+description = "Workflow automation with the power of Rust."
+readme = "../README.md"
+license = "MIT"
+license-file = "../LICENSE"
 version = "1.2.1"
 edition = "2021"
 
-description = "A Python module for task orchestration and automation, implemented in Rust."
-license = "MIT"
-
+include = [
+  "../README.md",
+  "../LICENSE"
+]
 
 [dependencies]
 pyo3 = { version = "0.18", features = ["extension-module", "abi3-py311"] }
