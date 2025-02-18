@@ -28,5 +28,16 @@ class TestWorkflow(unittest.TestCase):
 
         self.assertEqual(number_list, [1, 2])
 
+    def test_add_task_non_callable(self):
+        """Test adding non callables to a Workflow."""
+
+        workflow = Workflow("dummy_workflow")
+
+        with self.assertRaises(TypeError):
+            workflow.add_task("dummy_task", "non_callable")
+
+        with self.assertRaises(TypeError):
+            workflow.add_task("dummy_task", 100)
+
 if __name__ == "__main__":
     unittest.main()
