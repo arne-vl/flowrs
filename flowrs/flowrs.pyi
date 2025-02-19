@@ -1,9 +1,21 @@
+from collections.abc import Callable
+
 class Workflow:
-    """
-    A parallel workflow runner that executes Python tasks in parallel with dependency resolution.
+  """
+  Class representing a Workflow.
+  """
+  name:str
 
-    Methods:
-        __init__(): Initializes a new workflow.
-    """
+  def __init__(self, name: str) -> 'Workflow': ...
 
-    def __init__(self) -> None: ...
+  def add_task(self, name: str, fn: Callable) -> None:
+    """
+    Adds a task to the Workflow.
+    """
+    ...
+
+  def run(self) -> None:
+    """
+    Runs the Workflow.
+    """
+    ...
