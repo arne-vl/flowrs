@@ -1,13 +1,12 @@
-mod scheduler;
 mod task;
-mod error;
+mod scheduler;
 
 use pyo3::prelude::*;
 use scheduler::Scheduler;
 use task::Task;
 
 /// The main Workflow struct exposed to Python.
-/// It holds a list of tasks and manages execution.
+/// It holds a scheduler that can have tasks added to it.
 #[pyclass]
 pub struct Workflow {
     scheduler: Scheduler,
@@ -15,31 +14,21 @@ pub struct Workflow {
 
 #[pymethods]
 impl Workflow {
-    /// Creates a new, empty Workflow.
     #[new]
-    pub fn new() -> Self {
-        Workflow {
-            scheduler: Scheduler::new(),
-        }
+    pub fn new() -> PyResult<Self> {
+        Ok(Workflow { scheduler: Scheduler::new() })
     }
 
-    /// Adds a task to the workflow.
-    ///
-    /// Args:
-    ///     func: A Python callable representing the task.
-    ///     depends_on: An optional list of callables that this task depends on.
+    /// Add a task to the scheduler.
     pub fn add_task(&mut self, func: PyObject, depends_on: Option<Vec<PyObject>>) -> PyResult<()> {
-        let task = Task::new(func, depends_on);
-        self.scheduler.add_task(task);
-        Ok(())
+        return self.scheduler.add_task(
+            Task::new(func, depends_on)
+        );
     }
 
-    /// Runs all tasks in parallel, resolving dependencies.
-    ///
-    /// Raises:
-    ///     RuntimeError: If there is a circular dependency or other scheduling error.
-    pub fn run(&self) -> PyResult<()> {
-        self.scheduler.execute()
+    /// Run all scheduled tasks.
+    pub fn run(&self, py: Python) -> PyResult<()> {
+        self.scheduler.run(py)
     }
 }
 

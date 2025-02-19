@@ -1,7 +1,6 @@
 use pyo3::prelude::*;
 
 /// Represents a task in the workflow.
-#[derive(Clone)]
 pub struct Task {
     /// The Python callable to execute.
     pub func: PyObject,
@@ -19,9 +18,7 @@ impl Task {
     ///
     /// Acquires the GIL and calls the stored Python function.
     pub fn execute(&self, py: Python) -> PyResult<()> {
-        // Retrieve the callable from the stored PyObject.
         let callable = self.func.as_ref(py);
-        // Call the function without any arguments.
         callable.call0()?;
         Ok(())
     }
