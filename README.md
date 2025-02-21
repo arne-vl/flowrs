@@ -5,7 +5,7 @@ Workflow automation with the power of Rust. Let your automations blossom!
 	<img alt="Static Badge" src="https://img.shields.io/badge/pip-flowrs-blue">
 </a>
 <a href="https://pypi.org/project/flowrs/">
-	<img alt="PyPI - Version" src="https://img.shields.io/pypi/v/flowrs">
+	<img alt="PyPI - Version" src="https://img.shields.io/pypi/v/flowrs?color=green">
 </a>
 
 ## Defining and running a Workflow
